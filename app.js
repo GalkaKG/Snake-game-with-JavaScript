@@ -2,7 +2,7 @@ const canvas = document.getElementById('canvas');
 /** @type {CanvasRenderingContext2D} */
 const ctx = canvas.getContext('2d');
 
-const width =canvas.width;
+const width = canvas.width;
 const height = canvas.height;
 const hSize = 20;
 const vSize = 20;
@@ -31,10 +31,10 @@ let size = 3;
 window.addEventListener('keydown', (event) => {
     switch (event.key) {
         case 'ArrowUp':
-            if (speed.y == 0){
+            if (speed.y == 0) {
                 inputSpeed.y = -1;
                 inputSpeed.x = 0;
-            } 
+            }
             break;
         case 'ArrowDown':
             if (speed.y == 0) {
@@ -50,8 +50,8 @@ window.addEventListener('keydown', (event) => {
             break;
         case 'ArrowRight':
             if (speed.x == 0) {
-                speed.y = 0;
-                speed.x = 1;
+                inputSpeed.y = 0;
+                inputSpeed.x = 1;
             }
             break;
     }
@@ -62,19 +62,19 @@ function clear() {
 }
 
 function drawGrid() {
-    ctx.strokeStyle = '#999999'
+    ctx.strokeStyle = '#999999';
     ctx.beginPath();
 
-    for (let x = 0; x < hSize; x++) {
+    for (let x = 1; x < hSize; x++) {
         ctx.moveTo(x * gridSize, 0);
         ctx.lineTo(x * gridSize, height);
     }
 
-    for (let y = 0; y < vSize; y++) {
+    for (let y = 1; y < vSize; y++) {
         ctx.moveTo(0, y * gridSize);
         ctx.lineTo(width, y * gridSize);
     }
-    
+
     ctx.closePath();
     ctx.stroke();
 }
@@ -136,11 +136,11 @@ function tick() {
 
 function drawScene() {
     clear();
-    drawGrid(); 
+    drawGrid();
     rect(snake.x, snake.y, 'orange');
-    for (let segment of tail){
+    for (let segment of tail) {
         rect(segment.x, segment.y, 'green');
-    }  
+    }
     rect(apple.x, apple.y, 'red');
 }
 
@@ -151,7 +151,7 @@ function main() {
 
 function gameOver() {
     clearInterval(timer);
-    const choice = confirm(`Game over!\nYour score: ${size - 3}\n\nPlay again?`);
+    const choice = confirm(`Game over!\nYour score: ${(size - 3) * 100}\n\nPlay again?`);
 
     if (choice == true) {
         start();
@@ -167,11 +167,9 @@ function start() {
     speed.y = 0;
     inputSpeed.x = 1;
     inputSpeed.y = 0;
-
     spawnApple();
-    setInterval(main, 100);
+
+    timer = setInterval(main, 100);
 }
 
 start();
-
-
